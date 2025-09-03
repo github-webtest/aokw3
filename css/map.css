@@ -1,0 +1,52 @@
+body {
+      margin: 0;
+      overflow: hidden;
+	  user-select: none;
+    }
+    #viewport {
+      width: 100vw;
+      height: 100vh;
+      overflow: scroll;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+    }
+    #map {
+      position: relative;
+      width: calc(500 * 80px);
+      height: calc(500 * 80px);
+      transform-origin: 0 0;
+    }
+    .map_chunk {
+      position: absolute;
+      display: grid;
+      grid-template-columns: repeat(20, 80px);
+      grid-template-rows: repeat(20, 80px);
+    }
+    .map_b_s {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+	  background-repeat: no-repeat;
+	  background-size: 100% 100%;
+    }
+    .map_s {
+      width: 80px;
+      height: 65px;
+	  background-repeat: no-repeat;
+	  background-size: 100% 100%;
+	  background-position: center;
+    }
+    .map_t {
+	  max-width: 76px;
+	  padding-left: 2px;
+	  padding-right: 2px;
+      height: 15px;
+      font-size: 9px;
+      text-align: center;
+      line-height: 15px;
+	  color: white;
+	  margin: auto;
+	  display: inline-block;
+	  background-color: black;
+    }
