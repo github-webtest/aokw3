@@ -96,7 +96,7 @@
     const maxScale = 2;
     let lastDist = null;
 	
-	/* Zoom (pinch)
+	/*/ Zoom (pinch)
 
     viewport.addEventListener("touchmove", (e) => {
       if (e.touches.length === 2) {
@@ -118,6 +118,28 @@
 	
 	*/
 	
+	viewport.addEventListener("touchmove", (e) => {
+  if (e.touches.length === 2) {
+    e.preventDefault(); // Önemli! Tarayıcı zoom'unu engeller
+
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (lastDist !== null) {
+      let scaleChange = dist / lastDist;
+      currentScale = Math.min(maxScale, Math.max(minScale, currentScale * scaleChange));
+
+      map.style.transform = `scale(${currentScale})`;
+    }
+
+    lastDist = dist;
+  }
+}, { passive: false }); // passive false olmalı
+
+viewport.addEventListener("touchend", () => {
+  lastDist = null;
+});
 	
 	function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
