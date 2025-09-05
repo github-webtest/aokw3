@@ -1,5 +1,5 @@
 
- const rows = 500, cols = 500;
+ const rows = 480, cols = 480;
     const chunkSize = 20;
     const chunkWidth = 80 * chunkSize;
     const chunkHeight = 80 * chunkSize;
@@ -25,7 +25,7 @@
           const globalY = cy * chunkSize + y;
           if (globalX > cols || globalY > rows) continue;
 		  
-		  const map_ids = Math.floor(((globalY - 1) * 500) + globalX);
+		  const map_ids = Math.floor(((globalY - 1) * 480) + globalX);
 		  
 		  const mapItem = mapData.find(item => item.id === map_ids);
 
@@ -77,13 +77,13 @@
 
     viewport.addEventListener("scroll", updateVisibleChunks);
 
-    // 📌 Ortalamak için
+    // Ortalamak için
     function centerOnTile(x, y) {
-      const tileX = (x - 1) * 50;
-      const tileY = (y - 1) * 65;
+      const tileX = (x - 1) * 80;
+      const tileY = (y - 1) * 80;
 
-      const centerX = tileX * currentScale - (viewport.clientWidth / 2) + (50 * currentScale / 2);
-      const centerY = tileY * currentScale - (viewport.clientHeight / 2) + (65 * currentScale / 2);
+      const centerX = tileX * currentScale - (viewport.clientWidth / 2) + (80 * currentScale / 2);
+      const centerY = tileY * currentScale - (viewport.clientHeight / 2) + (80 * currentScale / 2);
 
       viewport.scrollLeft = centerX;
       viewport.scrollTop = centerY;
@@ -91,11 +91,12 @@
       updateVisibleChunks();
     }
 
-    // 📌 Zoom (pinch)
     let currentScale = 1;
     const minScale = 0.5;
     const maxScale = 2;
     let lastDist = null;
+	
+	/* Zoom (pinch)
 
     viewport.addEventListener("touchmove", (e) => {
       if (e.touches.length === 2) {
@@ -114,8 +115,18 @@
     });
 
     viewport.addEventListener("touchend", () => { lastDist = null; });
-
+	
+	*/
+	
+	
+	function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get(param));
+    }
+	
     // Başlangıç pozisyonu: oyuncu x356 y290 ortada
     window.onload = () => {
-      centerOnTile(1, 1);
+    const x = getQueryParam("x") || 1; // default 1
+    const y = getQueryParam("y") || 1; // default 1
+    centerOnTile(x, y);
     };
